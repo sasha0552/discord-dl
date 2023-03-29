@@ -54,36 +54,34 @@ async function main() {
     referenceWalker.addFinder(new CssReferenceFinder());
     referenceWalker.addFinder(new HtmlReferenceFinder());
     referenceWalker.addFinder(new JsReferenceFinder());
-    referenceWalker.addFinder(new RegexReferenceFinder());
+    //referenceWalker.addFinder(new RegexReferenceFinder());
 
     /////
-
-    //referenceWalker.bindExtenstionToType(".css", "text/css");
-    //referenceWalker.bindExtenstionToType(".js", "text/javascript");
 
     referenceWalker.bindExtenstionToType(".css", "text/css");
     referenceWalker.bindExtenstionToType(".html", "text/html");
-    referenceWalker.bindExtenstionToType(".js", "special/regex");
+    referenceWalker.bindExtenstionToType(".js", "text/javascript");
 
     /////
 
+    referenceWalker.bindExtenstionToType(".gif", "special/skip");
     referenceWalker.bindExtenstionToType(".ico", "special/skip");
+    referenceWalker.bindExtenstionToType(".jpg", "special/skip");
+    referenceWalker.bindExtenstionToType(".mov", "special/skip");
+    referenceWalker.bindExtenstionToType(".mp3", "special/skip");
+    referenceWalker.bindExtenstionToType(".mp4", "special/skip");
     referenceWalker.bindExtenstionToType(".png", "special/skip");
     referenceWalker.bindExtenstionToType(".svg", "special/skip");
-    referenceWalker.bindExtenstionToType(".woff2", "special/skip");
-    referenceWalker.bindExtenstionToType(".jpg", "special/skip");
-    referenceWalker.bindExtenstionToType(".gif", "special/skip");
-    referenceWalker.bindExtenstionToType(".mp4", "special/skip");
-    referenceWalker.bindExtenstionToType(".mp3", "special/skip");
     referenceWalker.bindExtenstionToType(".webm", "special/skip");
-    referenceWalker.bindExtenstionToType(".mov", "special/skip");
     referenceWalker.bindExtenstionToType(".webp", "special/skip");
     referenceWalker.bindExtenstionToType(".woff", "special/skip");
+    referenceWalker.bindExtenstionToType(".woff2", "special/skip");
 
     /////
 
     //for (const id of [ "latest" ].concat(await fetchIdList(DISCORDAPP_URL))) {
-    for (const id of [ "20230101015410" ]) {
+    //for (const id of [ "20230101015410" ]) {
+    for (const id of [ "latest" ]} {
         console.log("index.js: Start of fetching version with id %s", id);
         await walkAndSave(referenceWalker, id === "latest" ? DISCORDAPP_URL : `https://web.archive.org/web/${id}id_/${DISCORDAPP_URL}`, id);
         console.log("index.js: End of fetching version with id %s", id);
