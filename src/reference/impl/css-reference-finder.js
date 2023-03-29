@@ -52,7 +52,7 @@ export class CssReferenceFinder extends ReferenceFinder {
                 if (value.startsWith("blob:")) {
                     return;
                 }
-                
+
                 // filter ids (#id)
                 if (value.startsWith("#")) {
                     return;
