@@ -1,0 +1,14 @@
+{
+  "name": "discord-dl",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "author": "sasha0552",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "acorn": "^8.8.2",
+    "cheerio": "^1.0.0-rc.12",
+    "css-tree": "^2.3.1"
+  }
+}
