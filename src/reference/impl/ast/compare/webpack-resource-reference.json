@@ -1,0 +1,70 @@
+{
+  "type": "ArrowFunctionExpression",
+
+  "params": [
+    {
+      "type": "Identifier"
+    },
+    {
+      "type": "Identifier"
+    },
+    {
+      "type": "Identifier"
+    }
+  ],
+
+  "body": {
+    "type": "BlockStatement",
+
+    "body": [
+      {
+        "type": "ExpressionStatement",
+
+        "expression": {
+          "type": "AssignmentExpression",
+
+          "operator": "=",
+
+          "left": {
+            "type": "MemberExpression",
+
+            "object": {
+              "type": "Identifier"
+            },
+
+            "property": {
+              "type": "Identifier",
+
+              "name": "exports"
+            }
+          },
+
+          "right": {
+            "type": "BinaryExpression",
+
+            "left": {
+              "type": "MemberExpression",
+
+              "object": {
+                "type": "Identifier"
+              },
+
+              "property": {
+                "type": "Identifier"
+              }
+            },
+
+            "operator": "+",
+
+            "right": {
+              "type": "Literal",
+
+              ";special:name": "resourceReference",
+              ";special:marker": "value"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

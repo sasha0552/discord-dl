@@ -1,0 +1,26 @@
+{
+  "type": "BinaryExpression",
+
+  "left": {
+    "type": "MemberExpression",
+
+    "object": {
+      "type": "ObjectExpression",
+
+      ";special:name": "jsChunks",
+      ";special:marker": "properties"
+    },
+
+    "property": {
+      "type": "Identifier"
+    }
+  },
+
+  "operator": "+",
+
+  "right": {
+    "type": "Literal",
+
+    "value": ".js"
+  }
+}

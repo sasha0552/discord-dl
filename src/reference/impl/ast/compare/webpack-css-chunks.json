@@ -1,0 +1,40 @@
+{
+  "type": "BinaryExpression",
+
+  "left": {
+    "type": "BinaryExpression",
+
+    "left": {
+      "type": "BinaryExpression",
+
+      "operator": "+",
+
+      "right": {
+        "type": "Literal",
+
+        "value": "."
+      }
+    },
+
+    "operator": "+",
+
+    "right": {
+      "type": "MemberExpression",
+
+      "object": {
+        "type": "ObjectExpression",
+
+        ";special:name": "cssChunks",
+        ";special:marker": "properties"
+      }
+    }
+  },
+
+  "operator": "+",
+
+  "right": {
+    "type": "Literal",
+
+    "value": ".css"
+  }
+}

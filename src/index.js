@@ -7,6 +7,19 @@ import { HtmlReferenceFinder } from "./reference/impl/html-reference-finder.js";
 import { JsReferenceFinder } from "./reference/impl/js-reference-finder.js";
 import { RegexReferenceFinder } from "./reference/impl/regex-reference-finder.js";
 
+import webpackCssChunksDetector from "./reference/impl/ast/detector/webpack-css-chunks-detector.js";
+import webpackJsChunksDetector from "./reference/impl/ast/detector/webpack-js-chunks-detector.js";
+import webpackResourceReferenceDetector from "./reference/impl/ast/detector/webpack-resource-reference-detector.js";
+
+import webpackCssChunks from "./reference/impl/ast/compare/webpack-css-chunks.json" assert { type: "json"};
+import webpackJsChunks from "./reference/impl/ast/compare/webpack-js-chunks.json" assert { type: "json"};
+import webpackResourceReference from "./reference/impl/ast/compare/webpack-resource-reference.json" assert { type: "json"};
+
+import webpackCssChunksProcessor from "./reference/impl/ast/processor/webpack-css-chunks-processor.js";
+import webpackJsChunksProcessor from "./reference/impl/ast/processor/webpack-js-chunks-processor.js";
+import webpackResourceReferenceProcessor from "./reference/impl/ast/processor/webpack-resource-reference-processor.js";
+
+
 import { fetchIdList } from "./archive/archived-pages.js";
 
 /////
@@ -53,13 +66,19 @@ async function main() {
 
     referenceWalker.addFinder(new CssReferenceFinder());
     referenceWalker.addFinder(new HtmlReferenceFinder());
-    referenceWalker.addFinder(new JsReferenceFinder());
+    referenceWalker.addFinder(
+        new JsReferenceFinder(
+            [
+                [ "webpackJsChunks", webpackJsChunksDetector, webpackJsChunks, webpackJsChunksProcessor ],
+                [ "webpackResourceReference", webpackResourceReferenceDetector,  webpackResourceReference,  webpackResourceReferenceProcessor ]
+            ]
+        )
+    );
     //referenceWalker.addFinder(new RegexReferenceFinder());
 
     /////
 
-    //referenceWalker.bindExtenstionToType(".css", "text/css");
-    referenceWalker.bindExtenstionToType(".css", "special/skip");
+    referenceWalker.bindExtenstionToType(".css", "text/css");
     referenceWalker.bindExtenstionToType(".html", "text/html");
     referenceWalker.bindExtenstionToType(".js", "text/javascript");
 
@@ -73,6 +92,7 @@ async function main() {
     referenceWalker.bindExtenstionToType(".mp4", "special/skip");
     referenceWalker.bindExtenstionToType(".png", "special/skip");
     referenceWalker.bindExtenstionToType(".svg", "special/skip");
+    referenceWalker.bindExtenstionToType(".wasm", "special/skip");
     referenceWalker.bindExtenstionToType(".webm", "special/skip");
     referenceWalker.bindExtenstionToType(".webp", "special/skip");
     referenceWalker.bindExtenstionToType(".woff", "special/skip");
