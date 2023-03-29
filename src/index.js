@@ -81,7 +81,7 @@ async function main() {
 
     //for (const id of [ "latest" ].concat(await fetchIdList(DISCORDAPP_URL))) {
     //for (const id of [ "20230101015410" ]) {
-    for (const id of [ "latest" ]} {
+    for (const id of [ "latest" ]) {
         console.log("index.js: Start of fetching version with id %s", id);
         await walkAndSave(referenceWalker, id === "latest" ? DISCORDAPP_URL : `https://web.archive.org/web/${id}id_/${DISCORDAPP_URL}`, id);
         console.log("index.js: End of fetching version with id %s", id);
