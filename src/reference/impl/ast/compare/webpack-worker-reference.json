@@ -1,0 +1,95 @@
+{
+  "type": "ArrowFunctionExpression",
+
+  "params": [
+    {
+      "type": "Identifier"
+    },
+    {
+      "type": "Identifier"
+    },
+    {
+      "type": "Identifier"
+    }
+  ],
+
+  "body": {
+    "type": "BlockStatement",
+
+    "body": [
+      {
+        "type": "ExpressionStatement",
+
+        "expression": {
+          "type": "AssignmentExpression",
+
+          "operator": "=",
+
+          "left": {
+            "type": "MemberExpression",
+
+            "object": {
+              "type": "Identifier"
+            },
+
+            "property": {
+              "type": "Identifier",
+
+              "name": "exports"
+            }
+          },
+
+          "right": {
+            "type": "FunctionExpression",
+
+            "body": {
+              "type": "BlockStatement",
+
+              "body": [
+                {
+                  "type": "ReturnStatement",
+
+                  "argument": {
+                    "type": "NewExpression",
+
+                    "callee": {
+                      "type": "Identifier",
+                      "name": "Worker"
+                    },
+
+                    "arguments": [
+                      {
+                        "type": "BinaryExpression",
+
+                        "left": {
+                          "type": "MemberExpression",
+
+                          "object": {
+                            "type": "Identifier"
+                          },
+
+                          "property": {
+                            "type": "Identifier"
+                          }
+                        },
+
+                        "operator": "+",
+
+                        "right": {
+                          "type": "Literal",
+
+                          ";special:name": "workerReference",
+                          ";special:marker": "value"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
