@@ -58,7 +58,8 @@ async function main() {
 
     /////
 
-    referenceWalker.bindExtenstionToType(".css", "text/css");
+    //referenceWalker.bindExtenstionToType(".css", "text/css");
+    referenceWalker.bindExtenstionToType(".css", "special/skip");
     referenceWalker.bindExtenstionToType(".html", "text/html");
     referenceWalker.bindExtenstionToType(".js", "text/javascript");
 

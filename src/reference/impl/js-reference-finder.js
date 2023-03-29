@@ -1,4 +1,4 @@
-
+import { parse } from "acorn";
 
 /////
 
@@ -14,6 +14,10 @@ export class JsReferenceFinder extends ReferenceFinder {
     /////
 
     find(body) {
+        const $ = parse(body, { ecmaVersion: "latest" });
+
+        /////
+
         const references = [];
 
         /////
