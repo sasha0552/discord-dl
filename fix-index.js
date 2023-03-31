@@ -1,4 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
+
+/////
+
 import { load } from "cheerio";
 
 ///// ///// ///// ///// /////
@@ -12,12 +15,38 @@ function main() {
 
     /////
 
+    $("link[rel=icon]").each(function (index, element) {
+        $(this).remove();
+    });
+
+    $("link[rel=prefetch]").each(function (index, element) {
+        $(this).remove();
+    });
+
+    /////
+
     $("[nonce]").each(function (index, element) {
         $(this).removeAttr("nonce");
     });
 
     $("[integrity]").each(function (index, element) {
         $(this).removeAttr("integrity");
+    });
+
+    /////
+
+    $("meta").each(function (index, element) {
+        if (element.attribs["charset"]) {
+            return;
+        }
+
+        if (element.attribs["name"] === "viewport") {
+            return;
+        }
+
+        /////
+
+        $(this).remove();
     });
 
     /////
@@ -41,6 +70,16 @@ function main() {
             $(this).remove();
         }
     });
+
+    /////
+
+    $.root()
+        .find("*")
+        .contents()
+        .filter(function() {
+            return this.type === "comment";
+        })
+        .remove();
 
     ///// ///// /////
 
