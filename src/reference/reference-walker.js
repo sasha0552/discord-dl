@@ -136,14 +136,20 @@ export class ReferenceWalker {
 
             /////
 
-            const parts = relative.split(".");
+            const parts1 = relative.split(".");
 
             /////
 
-            if (parts[0].length === 20) {
-                if (missing.has(parts[0])) {
-                    missing.delete(parts[0]);
-                }                
+            if (parts1[0].startsWith("/assets/")) {
+                const parts2 = parts1[0].split("/");
+
+                if (parts2[2].length === 20) {
+                    if (missing.has(parts2[2])) {
+                        missing.delete(parts2[2]);
+                    }
+                }
+            } else {
+                console.warn("WARN: %s is not starts with /assets/", url)
             }
         }
 
