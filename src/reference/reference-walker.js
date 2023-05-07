@@ -131,21 +131,28 @@ export class ReferenceWalker {
 
         /////
 
+        console.debug("reference-walker.js/missing(): there is %d/%d hashes", this.resourceHashes.size, this.walkedList.length);
+
+        /////
+
         for (const url of this.walkedList) {
             const relative = url.substring(this.baseURL.length);
 
             /////
 
-            const parts1 = relative.split(".");
+            // TODO: hardcoded values, again
+            if (relative.startsWith("/assets/")) {
+                const resource = relative.substring("/assets/".length);
 
-            /////
+                if (missing.has(resource)) {
+                    missing.delete(resource);
+                } else {
+                    const hash = resource.split(".")[0];
 
-            if (parts1[0].startsWith("/assets/")) {
-                const parts2 = parts1[0].split("/");
-
-                if (parts2[2].length === 20) {
-                    if (missing.has(parts2[2])) {
-                        missing.delete(parts2[2]);
+                    if (hash.length === 20) {
+                        if (missing.has(hash)) {
+                            missing.delete(hash);
+                        }
                     }
                 }
             } else {

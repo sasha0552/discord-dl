@@ -40,6 +40,7 @@ function ariaEntry(url, filename) {
 async function walkAndSave(referenceWalker, url, id) {
     const ariaList = [];
     const missingList = [];
+    const maybeUrls = [];
 
     /////
 
@@ -67,8 +68,18 @@ async function walkAndSave(referenceWalker, url, id) {
 
     /////
 
+    for (const hash of missingList) {
+        for (const maybeExt of [ ".module.wasm" ]) {
+            const url = DISCORD_URL + "/assets/" + hash + maybeExt;
+            const path = "assets/" + hash + maybeExt;
+
+            maybeUrls.push(ariaEntry(url, path));
+        }
+    }
+
     await writeFile(id + ".txt", ariaList.join("\n"));
     await writeFile(id + ".missing.txt", missingList.join("\n"));
+    await writeFile(id + ".maybe.txt", maybeUrls.join("\n"));
 }
 
 async function main() {
@@ -115,7 +126,7 @@ async function main() {
     /////
 
     // https://web.archive.org/cdx/search/cdx?url=${url}
-    for (const id of [ "20230101015410", "20230201040033", "20230301005436" ]) {
+    for (const id of [ "20230101015410" ]) {
         console.log("index.js: Start of fetching version with id %s", id);
         await walkAndSave(referenceWalker, id === "latest" ? DISCORDAPP_URL : `https://web.archive.org/web/${id}id_/${DISCORDAPP_URL}`, id);
         console.log("index.js: End of fetching version with id %s", id);
