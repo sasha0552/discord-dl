@@ -54,6 +54,6 @@ export class HtmlReferenceFinder extends ReferenceFinder {
 
         /////
 
-        return references;
+        return { references };
     }
 }

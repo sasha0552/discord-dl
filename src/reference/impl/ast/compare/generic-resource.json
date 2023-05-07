@@ -1,0 +1,6 @@
+{
+    "type": "Literal",
+    ";special:name": "resourceString",
+    ";special:marker": "value",
+    ";special:test": "/^[0-9a-f]{20}$/"
+}

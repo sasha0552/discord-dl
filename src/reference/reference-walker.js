@@ -6,6 +6,7 @@ export class ReferenceWalker {
 
         this.findersMap = new Map();
         this.extToTypeMap = new Map();
+        this.resourceHashes = new Set();
         this.walkedList = [];
     }
 
@@ -95,14 +96,20 @@ export class ReferenceWalker {
         /////
 
         if (this.findersMap.has(type)) {
-            const references = this.findersMap
+            const result = this.findersMap
                 .get(type)
                 .find(content);
 
             /////
 
-            for (const reference of references) {
+            for (const reference of result.references) {
                 await this.walk(this.determineType(reference), reference, null);
+            }
+
+            if (result.resourceHashes) {
+                for (const hash of result.resourceHashes) {
+                    this.resourceHashes.add(hash);
+                }
             }
         }
     }
@@ -115,6 +122,34 @@ export class ReferenceWalker {
         /////
 
         return this.walkedList;
+    }
+
+    /////
+
+    missing() {
+        const missing = new Set(this.resourceHashes);
+
+        /////
+
+        for (const url of this.walkedList) {
+            const relative = url.substring(this.baseURL.length);
+
+            /////
+
+            const parts = relative.split(".");
+
+            /////
+
+            if (parts[0].length === 20) {
+                if (missing.has(parts[0])) {
+                    missing.delete(parts[0]);
+                }                
+            }
+        }
+
+        /////
+
+        return Array.from(missing);
     }
 
     /////

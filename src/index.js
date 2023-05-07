@@ -12,16 +12,19 @@ import webpackCssChunksDetector from "./reference/impl/ast/detector/webpack-css-
 import webpackJsChunksDetector from "./reference/impl/ast/detector/webpack-js-chunks-detector.js";
 import webpackResourceReferenceDetector from "./reference/impl/ast/detector/webpack-resource-reference-detector.js";
 import webpackWorkerReferenceDetector from "./reference/impl/ast/detector/webpack-worker-reference-detector.js";
+import genericResourceDetector from "./reference/impl/ast/detector/generic-resource-detector.js";
 
 import webpackCssChunks from "./reference/impl/ast/compare/webpack-css-chunks.json" assert { type: "json"};
 import webpackJsChunks from "./reference/impl/ast/compare/webpack-js-chunks.json" assert { type: "json"};
 import webpackResourceReference from "./reference/impl/ast/compare/webpack-resource-reference.json" assert { type: "json"};
 import webpackWorkerReference from "./reference/impl/ast/compare/webpack-worker-reference.json" assert { type: "json"};
+import genericResource from "./reference/impl/ast/compare/generic-resource.json" assert { type: "json"};
 
 import webpackCssChunksProcessor from "./reference/impl/ast/processor/webpack-css-chunks-processor.js";
 import webpackJsChunksProcessor from "./reference/impl/ast/processor/webpack-js-chunks-processor.js";
 import webpackResourceReferenceProcessor from "./reference/impl/ast/processor/webpack-resource-reference-processor.js";
 import webpackWorkerReferenceProcessor from "./reference/impl/ast/processor/webpack-worker-reference-processor.js";
+import genericResourceProcessor from "./reference/impl/ast/processor/generic-resource-processor.js";
 
 /////
 
@@ -36,6 +39,7 @@ function ariaEntry(url, filename) {
 
 async function walkAndSave(referenceWalker, url, id) {
     const ariaList = [];
+    const missingList = [];
 
     /////
 
@@ -53,11 +57,18 @@ async function walkAndSave(referenceWalker, url, id) {
 
     /////
 
+    for (const missingHash of referenceWalker.missing()) {
+        missingList.push(missingHash);
+    }
+
+    /////
+
     referenceWalker.clear();
 
     /////
 
     await writeFile(id + ".txt", ariaList.join("\n"));
+    await writeFile(id + ".missing.txt", missingList.join("\n"));
 }
 
 async function main() {
@@ -70,9 +81,10 @@ async function main() {
     referenceWalker.addFinder(
         new JsReferenceFinder(
             [
-                [ "webpackJsChunks", webpackJsChunksDetector, webpackJsChunks, webpackJsChunksProcessor ],
-                [ "webpackResourceReference", webpackResourceReferenceDetector,  webpackResourceReference,  webpackResourceReferenceProcessor ],
-                [ "webpackWorkerReference", webpackWorkerReferenceDetector,  webpackWorkerReference,  webpackWorkerReferenceProcessor ],
+                [ "webpackJsChunks", webpackJsChunksDetector, webpackJsChunks, webpackJsChunksProcessor, "none" ],
+                [ "webpackResourceReference", webpackResourceReferenceDetector,  webpackResourceReference,  webpackResourceReferenceProcessor, "none" ],
+                [ "webpackWorkerReference", webpackWorkerReferenceDetector,  webpackWorkerReference,  webpackWorkerReferenceProcessor, "none" ],
+                [ "genericResource", genericResourceDetector, genericResource, genericResourceProcessor, "resourceHashes" ],
             ]
         )
     );

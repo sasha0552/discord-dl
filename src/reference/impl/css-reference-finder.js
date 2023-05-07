@@ -75,6 +75,6 @@ export class CssReferenceFinder extends ReferenceFinder {
 
         /////
 
-        return references;
+        return { references };
     }
 }

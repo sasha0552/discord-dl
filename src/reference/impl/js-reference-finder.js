@@ -47,6 +47,22 @@ function createAstComparer(object) {
                             markerNames.push([ object[";special:name"], pathes ]);
                         }
 
+                        if (typeof object[";special:test"] === "string") {
+                            const regex = object[";special:test"];
+
+                            if (regex.startsWith("/") && regex.endsWith("/")) {
+                                for (const path of pathes) {
+                                    statements.push(
+                                        `if (!${regex}.test(${path})) {\n` +
+                                        "    return false;\n"              +
+                                        "}\n"
+                                    )
+                                }
+                            } else {
+                                console.warn("Invalid regex \"%s\" passed as special:test", regex);
+                            }
+                        }
+
                         /////
 
                         markers = markers.concat(pathes);
@@ -155,7 +171,8 @@ export class JsReferenceFinder extends ReferenceFinder {
                 name: entry[0],
                 detector: entry[1],
                 comparer: createAstComparer(entry[2]),
-                processor: entry[3]
+                processor: entry[3],
+                additional: entry[4],
             });
         }
     }
@@ -194,8 +211,20 @@ export class JsReferenceFinder extends ReferenceFinder {
 
         /////
 
+        const additionalObject = {};
+
+        /////
+
+        for (const { additional } of this.processors) {
+            if (additional === "resourceHashes") {
+                additionalObject.resourceHashes = [];
+            }
+        }
+
+        /////
+
         full($, (node) => {
-            for (const { comparer, processor } of this.processors) {
+            for (const { comparer, processor, additional } of this.processors) {
                 const result = comparer(node);
 
                 /////
@@ -207,10 +236,14 @@ export class JsReferenceFinder extends ReferenceFinder {
                 /////
 
                 for (const reference of processor(result)) {
-                    if (reference.startsWith("/")) {
-                        references.push(this.getBaseUrl() + reference);
+                    if (additional === "resourceHashes") {
+                        additionalObject.resourceHashes.push(reference);
                     } else {
-                        references.push(reference);
+                        if (reference.startsWith("/")) {
+                            references.push(this.getBaseUrl() + reference);
+                        } else {
+                            references.push(reference);
+                        }
                     }
                 }
             }
@@ -218,6 +251,6 @@ export class JsReferenceFinder extends ReferenceFinder {
 
         /////
 
-        return references;
+        return { references, ... additionalObject };
     }
 }
