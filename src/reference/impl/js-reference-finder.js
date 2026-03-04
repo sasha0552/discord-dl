@@ -187,11 +187,13 @@ export class JsReferenceFinder extends ReferenceFinder {
 
     find(body) {
         let shouldContinue = false;
+        const detectedProcessors = [];
 
-        for (const { name, detector } of this.processors) {
-            if (detector(body)) {
+        for (const processor of this.processors) {
+            if (processor.detector(body)) {
                 shouldContinue = true;
-                //console.debug("js-reference-finder.js: detector for %s returned true", name)
+                detectedProcessors.push(processor);
+                //console.debug("js-reference-finder.js: detector for %s returned true", processor.name)
             }
         }
 
@@ -215,7 +217,7 @@ export class JsReferenceFinder extends ReferenceFinder {
 
         /////
 
-        for (const { additional } of this.processors) {
+        for (const { additional } of detectedProcessors) {
             if (additional === "resourceHashes") {
                 additionalObject.resourceHashes = [];
             }
@@ -224,7 +226,7 @@ export class JsReferenceFinder extends ReferenceFinder {
         /////
 
         full($, (node) => {
-            for (const { comparer, processor, additional } of this.processors) {
+            for (const { comparer, processor, additional } of detectedProcessors) {
                 const result = comparer(node);
 
                 /////
