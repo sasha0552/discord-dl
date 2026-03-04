@@ -54,6 +54,24 @@ export class HtmlReferenceFinder extends ReferenceFinder {
 
         /////
 
+        $("meta").each((index, element) => {
+            const metaContent = element.attribs["content"];
+
+            /////
+
+            if (metaContent !== undefined) {
+                if (metaContent.startsWith("https://discord.com/assets/")) {
+                    references.push(metaContent);
+                }
+
+                if (metaContent.startsWith("https://discordapp.com/assets/")) {
+                    references.push(metaContent);
+                }
+            }
+        });
+
+        /////
+
         return { references };
     }
 }

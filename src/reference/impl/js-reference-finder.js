@@ -191,7 +191,7 @@ export class JsReferenceFinder extends ReferenceFinder {
         for (const { name, detector } of this.processors) {
             if (detector(body)) {
                 shouldContinue = true;
-                console.debug("js-reference-finder.js: detector for %s returned true", name)
+                //console.debug("js-reference-finder.js: detector for %s returned true", name)
             }
         }
 

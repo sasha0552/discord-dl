@@ -8,14 +8,12 @@ import { JsReferenceFinder } from "./reference/impl/js-reference-finder.js";
 
 /////
 
-import webpackCssChunksDetector from "./reference/impl/ast/detector/webpack-css-chunks-detector.js";
-import webpackJsChunksDetector from "./reference/impl/ast/detector/webpack-js-chunks-detector.js";
-import webpackResourceReferenceDetector from "./reference/impl/ast/detector/webpack-resource-reference-detector.js";
-import webpackWorkerReferenceDetector from "./reference/impl/ast/detector/webpack-worker-reference-detector.js";
-import genericResourceDetector from "./reference/impl/ast/detector/generic-resource-detector.js";
+import webpackChunkDetector from "./discord-dl/src/reference/impl/ast/detector/webpack-chunk-detector.js";
+import webpackMainDetector from "./discord-dl/src/reference/impl/ast/detector/webpack-main-detector.js";
 
 import webpackCssChunks from "./reference/impl/ast/compare/webpack-css-chunks.json" assert { type: "json"};
 import webpackJsChunks from "./reference/impl/ast/compare/webpack-js-chunks.json" assert { type: "json"};
+import webpackJsChunks2 from "./discord-dl/src/reference/impl/ast/compare/webpack-js-chunks-2.json" with { type: "json"};
 import webpackResourceReference from "./reference/impl/ast/compare/webpack-resource-reference.json" assert { type: "json"};
 import webpackWorkerReference from "./reference/impl/ast/compare/webpack-worker-reference.json" assert { type: "json"};
 import genericResource from "./reference/impl/ast/compare/generic-resource.json" assert { type: "json"};
@@ -92,10 +90,12 @@ async function main() {
     referenceWalker.addFinder(
         new JsReferenceFinder(
             [
-                [ "webpackJsChunks", webpackJsChunksDetector, webpackJsChunks, webpackJsChunksProcessor, "none" ],
-                [ "webpackResourceReference", webpackResourceReferenceDetector,  webpackResourceReference,  webpackResourceReferenceProcessor, "none" ],
-                [ "webpackWorkerReference", webpackWorkerReferenceDetector,  webpackWorkerReference,  webpackWorkerReferenceProcessor, "none" ],
-                [ "genericResource", genericResourceDetector, genericResource, genericResourceProcessor, "resourceHashes" ],
+                ["webpackCssChunks", webpackMainDetector, webpackCssChunks, webpackCssChunksProcessor, "none"],
+                ["webpackJsChunks", webpackMainDetector, webpackJsChunks, webpackJsChunksProcessor, "none"],
+                ["webpackJsChunks2", webpackMainDetector, webpackJsChunks2, webpackJsChunksProcessor, "none"],
+                ["webpackResourceReference", webpackChunkDetector, webpackResourceReference, webpackResourceReferenceProcessor, "none"],
+                ["webpackWorkerReference", webpackChunkDetector, webpackWorkerReference, webpackWorkerReferenceProcessor, "none"],
+                ["genericResource", webpackChunkDetector, genericResource, genericResourceProcessor, "resourceHashes"],
             ]
         )
     );
