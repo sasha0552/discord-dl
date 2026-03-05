@@ -17,6 +17,12 @@ function createAstComparer(object) {
 
     /////
 
+    statements.push(
+        "try {"
+    );
+
+    /////
+
     function walk(object, path = "node", isArray = false) {
         for (const key in object) {
             const newPath = isArray ? path + "[" + key + "]" : path + "." + key;
@@ -148,6 +154,14 @@ function createAstComparer(object) {
     /////
 
     statements.push("return { markerNames, markers };\n");
+
+    /////
+
+    statements.push(
+        "} catch (e) {\n" +
+        "    return false;\n" +
+        "}\n"
+    );
 
     /////
 
