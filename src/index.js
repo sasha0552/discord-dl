@@ -8,13 +8,14 @@ import { JsReferenceFinder } from "./reference/impl/js-reference-finder.js";
 
 /////
 
-import webpackChunkDetector from "./discord-dl/src/reference/impl/ast/detector/webpack-chunk-detector.js";
-import webpackMainDetector from "./discord-dl/src/reference/impl/ast/detector/webpack-main-detector.js";
+import webpackChunkDetector from "./reference/impl/ast/detector/webpack-chunk-detector.js";
+import webpackMainDetector from "./reference/impl/ast/detector/webpack-main-detector.js";
 
 import webpackCssChunks from "./reference/impl/ast/compare/webpack-css-chunks.json" assert { type: "json"};
-import webpackJsChunks from "./reference/impl/ast/compare/webpack-js-chunks.json" assert { type: "json"};
-import webpackJsChunks2 from "./discord-dl/src/reference/impl/ast/compare/webpack-js-chunks-2.json" with { type: "json"};
-import webpackResourceReference from "./reference/impl/ast/compare/webpack-resource-reference.json" assert { type: "json"};
+import webpackJsChunks1 from "./reference/impl/ast/compare/webpack-js-chunks-1.json" assert { type: "json"};
+import webpackJsChunks2 from "./reference/impl/ast/compare/webpack-js-chunks-2.json" with { type: "json"};
+import webpackResourceReference1 from "./reference/impl/ast/compare/webpack-resource-reference-1.json" assert { type: "json"};
+import webpackResourceReference2 from "./reference/impl/ast/compare/webpack-resource-reference-2.json" assert { type: "json"};
 import webpackWorkerReference from "./reference/impl/ast/compare/webpack-worker-reference.json" assert { type: "json"};
 import genericResource from "./reference/impl/ast/compare/generic-resource.json" assert { type: "json"};
 
@@ -91,11 +92,11 @@ async function main() {
         new JsReferenceFinder(
             [
                 ["webpackCssChunks", webpackMainDetector, webpackCssChunks, webpackCssChunksProcessor, "none"],
-                ["webpackJsChunks", webpackMainDetector, webpackJsChunks, webpackJsChunksProcessor, "none"],
+                ["webpackJsChunks1", webpackMainDetector, webpackJsChunks1, webpackJsChunksProcessor, "none"],
                 ["webpackJsChunks2", webpackMainDetector, webpackJsChunks2, webpackJsChunksProcessor, "none"],
-                ["webpackResourceReference", webpackChunkDetector, webpackResourceReference, webpackResourceReferenceProcessor, "none"],
-                ["webpackWorkerReference", webpackChunkDetector, webpackWorkerReference, webpackWorkerReferenceProcessor, "none"],
-                ["genericResource", webpackChunkDetector, genericResource, genericResourceProcessor, "resourceHashes"],
+                ["webpackResourceReference1", webpackChunkDetector, webpackResourceReference1, webpackResourceReferenceProcessor, "none"],
+                ["webpackResourceReference2", webpackChunkDetector, webpackResourceReference2, webpackResourceReferenceProcessor, "none"],
+                ["webpackWorkerReference", webpackChunkDetector, webpackWorkerReference, webpackWorkerReferenceProcessor, "none"]
             ]
         )
     );

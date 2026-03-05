@@ -1,58 +1,26 @@
 {
-  "type": "ReturnStatement",
+  "type": "BinaryExpression",
 
-  "argument": {
-    "type": "BinaryExpression",
+  "left": {
+    "type": "MemberExpression",
 
-    "left": {
-      "type": "BinaryExpression",
+    "object": {
+      "type": "ObjectExpression",
 
-      "left": {
-        "type": "BinaryExpression",
-
-        "left": {
-          "type": "MemberExpression",
-
-          "object": {
-            "type": "Identifier"
-          },
-
-          "property": {
-            "type": "Identifier"
-          }
-        },
-
-        "operator": "+",
-
-        "right": {
-          "type": "Literal",
-          "value": ""
-        }
-      },
-
-      "operator": "+",
-
-      "right": {
-        "type": "MemberExpression",
-
-        "object": {
-          "type": "ObjectExpression",
-
-          ";special:name": "jsChunks",
-          ";special:marker": "properties"
-        },
-
-        "property": {
-          "type": "Identifier"
-        }
-      }
+      ";special:name": "jsChunks",
+      ";special:marker": "properties"
     },
 
-    "operator": "+",
-
-    "right": {
-      "type": "Literal",
-      "value": ".js"
+    "property": {
+      "type": "Identifier"
     }
+  },
+
+  "operator": "+",
+
+  "right": {
+    "type": "Literal",
+
+    "value": ".js"
   }
 }
