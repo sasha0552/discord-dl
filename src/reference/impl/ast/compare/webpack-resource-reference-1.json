@@ -1,10 +1,6 @@
 {
   "type": "FunctionDeclaration",
 
-  "id": {
-    "type": "Identifier"
-  },
-
   "params": [
     {
       "type": "Identifier"
