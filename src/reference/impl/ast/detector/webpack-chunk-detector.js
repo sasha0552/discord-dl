@@ -1,10 +1,10 @@
 const patterns = [
-  '(window.webpackJsonp=window.webpackJsonp||[])',
-  '"use strict";(window.webpackJsonp=window.webpackJsonp||[])',
-  '(this.webpackJsonp=this.webpackJsonp||[])',
-  '"use strict";(this.webpackJsonp=this.webpackJsonp||[])',
-  '(this.webpackChunkdiscord_app=this.webpackChunkdiscord_app||[])',
-  '"use strict";(this.webpackChunkdiscord_app=this.webpackChunkdiscord_app||[])',
+  '(window.webpackJsonp=window.webpackJsonp||[]).push(',
+  '"use strict";(window.webpackJsonp=window.webpackJsonp||[]).push(',
+  '(this.webpackJsonp=this.webpackJsonp||[]).push(',
+  '"use strict";(this.webpackJsonp=this.webpackJsonp||[]).push(',
+  '(this.webpackChunkdiscord_app=this.webpackChunkdiscord_app||[]).push(',
+  '"use strict";(this.webpackChunkdiscord_app=this.webpackChunkdiscord_app||[]).push(',
 ];
 
 export default function detect(body) {
