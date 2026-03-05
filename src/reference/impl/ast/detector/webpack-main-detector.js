@@ -1,4 +1,4 @@
-const skipPatterns = [
+const patterns = [
   '(window.webpackJsonp=window.webpackJsonp||[])',
   '"use strict";(window.webpackJsonp=window.webpackJsonp||[])',
   '(this.webpackJsonp=this.webpackJsonp||[])',
@@ -14,12 +14,16 @@ export default function detect(body) {
     return false;
   }
 
-  if (skipPatterns.some(pattern => lines[0].startsWith(pattern))) {
+  if (patterns.some(pattern => lines[0].startsWith(pattern))) {
     return false;
   }
 
   if (lines[0].startsWith("/*") && lines.length > 1) {
-    return !skipPatterns.some(pattern => lines[1].startsWith(pattern));
+    return !patterns.some(pattern => lines[1].startsWith(pattern));
+  }
+
+  if (!lines[0].includes("webpack") && !lines[0].includes("ChunkLoadError")) {
+    return false;
   }
 
   return true;
