@@ -19,7 +19,9 @@ export default function detect(body) {
   }
 
   if (lines[0].startsWith("/*") && lines.length > 1) {
-    return patterns.some(pattern => lines[1].startsWith(pattern));
+    if (patterns.some(pattern => lines[1].startsWith(pattern))) {
+      return true;
+    }
   }
 
   return false;
