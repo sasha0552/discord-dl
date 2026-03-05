@@ -14,8 +14,7 @@ export default function process(comparerResult) {
     for (const marker of markers) {
         for (const property of marker) {
             // TODO: fix hardcoded value
-            // TODO: how to determine css chunk (maybe id)?
-            references.push(`/assets/???.${property.value.value}.css`);
+            references.push(`/assets/${property.key.value}.${property.value.value}.css`);
         }
     }
 
