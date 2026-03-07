@@ -75,6 +75,18 @@ function createAstComparer(object) {
                     }
                 }
 
+                if (key.startsWith(";special:str_or:")) {
+                    const orKey = key.substring(";special:str_or:".length);
+                    const orNewPath = isArray ? path + "[" + orKey + "]" : path + "." + orKey;
+                    const orValues = value;
+
+                    statements.push(
+                        `if (${orValues.map((orValue) => `${orNewPath} !== "${orValue}"`).join(" && ")}) {\n` +
+                        "    return false;\n" +
+                        "}\n"
+                    );
+                }
+
                 continue;
             }
 
@@ -85,6 +97,12 @@ function createAstComparer(object) {
                     statements.push(
                         `if (!Array.isArray(${newPath})) {\n` +
                         "    return false;\n"                 +
+                        "}\n"
+                    )
+
+                    statements.push(
+                        `if (${newPath}.length < ${value.length}) {\n` +
+                        "    return false;\n"                          +
                         "}\n"
                     )
                 } else {
