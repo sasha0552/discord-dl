@@ -12,8 +12,13 @@ export default function process(comparerResult) {
     /////
 
     for (const marker of markers) {
-        // TODO: fix hardcoded value
-        references.push(`/assets/${marker}.module.wasm`);
+        if (marker.endsWith(".module.wasms")) {
+            // TODO: fix hardcoded value
+            references.push(`/assets/${marker}`);
+        } else {
+            // TODO: fix hardcoded value
+            references.push(`/assets/${marker}.module.wasm`);
+        }
     }
 
     /////
