@@ -1,0 +1,52 @@
+{
+  "type": "AssignmentExpression",
+
+  "operator": "=",
+
+  "left": {
+    "type": "MemberExpression",
+
+    "object": {
+      "type": "Identifier"
+    },
+
+    "property": {
+      "type": "Identifier"
+    }
+  },
+
+  "right": {
+    "type": "FunctionExpression",
+
+    "params": [
+      {
+        "type": "Identifier"
+      }
+    ],
+
+    "body": {
+      "type": "BlockStatement",
+
+      "body": [
+        {
+          "type": "ReturnStatement",
+
+          "argument": {
+            "type": "MemberExpression",
+
+            "object": {
+              "type": "ObjectExpression",
+
+              ";special:name": "jsChunks",
+              ";special:marker": "properties"
+            },
+
+            "property": {
+              "type": "Identifier"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -13,8 +13,13 @@ export default function process(comparerResult) {
 
     for (const marker of markers) {
         for (const property of marker) {
-            // TODO: fix hardcoded value
-            references.push(`/assets/${property.value.value}.js`);
+            if (property.value.value.endsWith(".js")) {
+                // TODO: fix hardcoded value
+                references.push(`/assets/${property.value.value}`);
+            } else {
+                // TODO: fix hardcoded value
+                references.push(`/assets/${property.value.value}.js`);
+            }
         }
     }
 
