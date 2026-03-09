@@ -31,7 +31,13 @@ function createAstComparer(object) {
             /////
 
             if (key.startsWith(";")) {
-                if (key === ";special:marker") {
+                if (key.startsWith(";special:marker")) {
+                    let markerKey = null;
+
+                    if (key.startsWith(";special:marker:")) {
+                        markerKey = key.substring(";special:marker:".length);
+                    }
+
                     let values = value;
 
                     if (typeof values === "string") {
@@ -49,12 +55,12 @@ function createAstComparer(object) {
 
                         /////
 
-                        if (typeof object[";special:name"] === "string") {
-                            markerNames.push([ object[";special:name"], pathes ]);
+                        if (typeof object[markerKey !== null ? ";special:name:" + markerKey : ";special:name"] === "string") {
+                            markerNames.push([ object[markerKey !== null ? ";special:name:" + markerKey : ";special:name"], pathes ]);
                         }
 
-                        if (typeof object[";special:test"] === "string") {
-                            const regex = object[";special:test"];
+                        if (typeof object[markerKey !== null ? ";special:test:" + markerKey : ";special:test"] === "string") {
+                            const regex = object[markerKey !== null ? ";special:test:" + markerKey : ";special:test"];
 
                             if (regex.startsWith("/") && regex.endsWith("/")) {
                                 for (const path of pathes) {
@@ -81,7 +87,7 @@ function createAstComparer(object) {
                     const orValues = value;
 
                     statements.push(
-                        `if (${orValues.map((orValue) => `${orNewPath} !== "${orValue}"`).join(" && ")}) {\n` +
+                        `if (${orValues.map((orValue) => `${orNewPath} !== ${JSON.stringify(orValue)}`).join(" && ")}) {\n` +
                         "    return false;\n" +
                         "}\n"
                     );
@@ -128,7 +134,7 @@ function createAstComparer(object) {
 
             if (typeof value === "string") {
                 statements.push(
-                    `if (${newPath} !== "${value}") {\n` +
+                    `if (${newPath} !== ${JSON.stringify(value)}) {\n` +
                     "    return false;\n"                +
                     "}\n"
                 )
@@ -136,7 +142,7 @@ function createAstComparer(object) {
 
             if (typeof value === "number" || typeof value === "boolean") {
                 statements.push(
-                    `if (${newPath} !== ${value}) {\n` +
+                    `if (${newPath} !== ${JSON.stringify(value)}) {\n` +
                     "    return false;\n"              +
                     "}\n"
                 )
