@@ -7,7 +7,7 @@ import { ReferenceFinder } from "../reference-finder.js";
 
 /////
 
-function createAstComparer(object) {
+export function createAstComparer(object) {
     const statements = [];
 
     /////

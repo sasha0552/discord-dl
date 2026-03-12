@@ -1,0 +1,59 @@
+{
+  ";special:str_or:type": ["ArrowFunctionExpression", "FunctionExpression"],
+
+  "params": [
+    {
+      "type": "Identifier"
+    }
+  ],
+
+  "body": {
+    "type": "BlockStatement",
+
+    "body": [
+      {
+        "type": "ExpressionStatement",
+
+        "expression": {
+          "type": "Literal",
+
+          "value": "use strict"
+        },
+
+        "directive": "use strict"
+      },
+
+      {
+        "type": "ExpressionStatement",
+
+        "expression": {
+          "type": "AssignmentExpression",
+
+          "operator": "=",
+
+          "left": {
+            "type": "MemberExpression",
+
+            "object": {
+              "type": "Identifier"
+            },
+
+            "property": {
+              "type": "Identifier",
+
+              "name": "exports"
+            }
+          },
+
+          "right": {
+            "type": "Literal",
+
+            ";special:name": "resourceReferenceWithPrefix",
+            ";special:marker": "value",
+            ";special:test": "/^\\/assets\\//"
+          }
+        }
+      }
+    ]
+  }
+}

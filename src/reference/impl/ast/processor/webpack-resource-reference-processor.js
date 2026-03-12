@@ -3,7 +3,8 @@ import { findMarkersByName } from "../utils.js";
 /////
 
 export default function process(comparerResult) {
-    const markers = findMarkersByName(comparerResult, "resourceReference");
+    const resourceReference = findMarkersByName(comparerResult, "resourceReference");
+    const resourceReferenceWithPrefix = findMarkersByName(comparerResult, "resourceReferenceWithPrefix");
 
     /////
 
@@ -11,9 +12,15 @@ export default function process(comparerResult) {
 
     /////
 
-    for (const marker of markers) {
+    for (const marker of resourceReference) {
         // TODO: fix hardcoded value
         references.push(`/assets/${marker}`);
+    }
+
+    /////
+
+    for (const marker of resourceReferenceWithPrefix) {
+        references.push(marker);
     }
 
     /////
