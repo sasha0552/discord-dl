@@ -281,8 +281,10 @@ export class JsReferenceFinder extends ReferenceFinder {
                     if (typeof value === "object" && value !== null) {
                         if (Array.isArray(value)) {
                             for (const element of value) {
-                                if (typeof element.type === "string") {
-                                    element._parent = node;
+                                if (typeof element === "object" && element !== null) {
+                                    if (typeof element.type === "string") {
+                                        element._parent = node;
+                                    }
                                 }
                             }
                         } else {
