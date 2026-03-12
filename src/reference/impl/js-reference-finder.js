@@ -30,6 +30,10 @@ export function createAstComparer(object) {
 
             /////
 
+            if (key === "_parent") {
+                continue;
+            }
+
             if (key.startsWith(";")) {
                 if (key.startsWith(";special:marker")) {
                     let markerKey = null;
@@ -177,7 +181,7 @@ export function createAstComparer(object) {
 
     /////
 
-    statements.push("return { markerNames, markers };\n");
+    statements.push("return { markerNames, markers, node };\n");
 
     /////
 
@@ -228,7 +232,7 @@ export class JsReferenceFinder extends ReferenceFinder {
         const detectedProcessors = [];
 
         for (const processor of this.processors) {
-            if (processor.detector(body)) {
+            if (processor.detector(body) || true) {
                 shouldContinue = true;
                 detectedProcessors.push(processor);
                 //console.debug("js-reference-finder.js: detector for %s returned true", processor.name)
@@ -256,9 +260,39 @@ export class JsReferenceFinder extends ReferenceFinder {
         /////
 
         for (const { additional } of detectedProcessors) {
-            if (additional === "resourceHashes") {
+            if (additional.split("+").includes("resourceHashes")) {
                 additionalObject.resourceHashes = [];
             }
+
+            if (additional.split("+").includes("astParent")) {
+                additionalObject.astParent = true;
+            }
+        }
+
+        if (additionalObject.astParent) {
+            full($, (node) => {
+                for (const key in node) {
+                    if (key === "_parent") {
+                        continue;
+                    }
+
+                    const value = node[key];
+
+                    if (typeof value === "object" && value !== null) {
+                        if (Array.isArray(value)) {
+                            for (const element of value) {
+                                if (typeof element.type === "string") {
+                                    element._parent = node;
+                                }
+                            }
+                        } else {
+                            if (typeof value.type === "string") {
+                                value._parent = node;
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         /////
