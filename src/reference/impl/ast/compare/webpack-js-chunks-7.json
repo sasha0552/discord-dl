@@ -1,0 +1,27 @@
+{
+  "type": "FunctionExpression",
+
+  "params": [
+    {
+      "type": "Identifier"
+    }
+  ],
+
+  "body": {
+    "type": "BlockStatement",
+
+    "body": [
+      {
+        "type": "ReturnStatement",
+
+        "argument": {
+          "type": "Literal",
+
+          ";special:name": "jsChunk",
+          ";special:marker": "value",
+          ";special:test": "/\\.js$/"
+        }
+      }
+    ]
+  }
+}
