@@ -1,0 +1,17 @@
+{
+  "type": "ArrowFunctionExpression",
+
+  "params": [
+    {
+      "type": "Identifier"
+    }
+  ],
+
+  "body": {
+    "type": "Literal",
+
+    ";special:name": "jsChunk",
+    ";special:marker": "value",
+    ";special:test": "/\\.js$/"
+  }
+}

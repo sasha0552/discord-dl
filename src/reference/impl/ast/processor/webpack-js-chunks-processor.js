@@ -3,7 +3,8 @@ import { findMarkersByName } from "../utils.js";
 /////
 
 export default function process(comparerResult) {
-    const markers = findMarkersByName(comparerResult, "jsChunks");
+    const jsChunk = findMarkersByName(comparerResult, "jsChunk");
+    const jsChunks = findMarkersByName(comparerResult, "jsChunks");
 
     /////
 
@@ -11,7 +12,12 @@ export default function process(comparerResult) {
 
     /////
 
-    for (const marker of markers) {
+    for (const marker of jsChunk) {
+        // TODO: fix hardcoded value
+        references.push(`/assets/${marker}`);
+    }
+
+    for (const marker of jsChunks) {
         for (const property of marker) {
             if (property.value.value.startsWith(".")) {
                 if (property.value.value.endsWith(".js")) {
