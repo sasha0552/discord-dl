@@ -25,22 +25,12 @@ export default function process(comparerResult) {
                 continue;
             }
 
-            if (property.value.value.startsWith(".")) {
-                if (property.value.value.endsWith(".css")) {
-                    // TODO: fix hardcoded value
-                    references.push(`/assets/${property.key.value}.${property.value.value}`);
-                } else {
-                    // TODO: fix hardcoded value
-                    references.push(`/assets/${property.key.value}.${property.value.value}.css`);
-                }
+            if (property.value.value.endsWith(".css")) {
+                // TODO: fix hardcoded value
+                references.push(`/assets/${property.key.value}.${property.value.value}`);
             } else {
-                if (property.value.value.endsWith(".css")) {
-                    // TODO: fix hardcoded value
-                    references.push(`/assets/${property.value.value}`);
-                } else {
-                    // TODO: fix hardcoded value
-                    references.push(`/assets/${property.value.value}.css`);
-                }
+                // TODO: fix hardcoded value
+                references.push(`/assets/${property.key.value}.${property.value.value}.css`);
             }
         }
     }
