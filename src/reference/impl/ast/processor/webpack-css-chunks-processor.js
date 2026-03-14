@@ -3,8 +3,8 @@ import { findMarkersByName } from "../utils.js";
 /////
 
 export default function process(comparerResult) {
-    const markers = findMarkersByName(comparerResult, "cssChunks");
-    const markersWithoutKeys = findMarkersByName(comparerResult, "cssChunksWithoutKeys");
+    const cssChunk = findMarkersByName(comparerResult, "cssChunk");
+    const cssChunks = findMarkersByName(comparerResult, "cssChunks");
 
     /////
 
@@ -12,27 +12,35 @@ export default function process(comparerResult) {
 
     /////
 
-    for (const marker of markers) {
-        for (const property of marker) {
-            // filter empty css chunks
-            if (property.value.value === "31d6cfe0d16ae931b73c") {
-                continue;
-            }
-
-            // TODO: fix hardcoded value
-            references.push(`/assets/${property.key.value}.${property.value.value}.css`);
-        }
+    for (const marker of cssChunk) {
+        // TODO: fix hardcoded value
+        references.push(`/assets/${marker}`);
     }
 
-    for (const marker of markersWithoutKeys) {
+    for (const marker of cssChunks) {
         for (const property of marker) {
             // filter empty css chunks
             if (property.value.value === "31d6cfe0d16ae931b73c") {
                 continue;
             }
 
-            // TODO: fix hardcoded value
-            references.push(`/assets/${property.value.value}.css`);
+            if (property.value.value.startsWith(".")) {
+                if (property.value.value.endsWith(".css")) {
+                    // TODO: fix hardcoded value
+                    references.push(`/assets/${property.key.value}.${property.value.value}`);
+                } else {
+                    // TODO: fix hardcoded value
+                    references.push(`/assets/${property.key.value}.${property.value.value}.css`);
+                }
+            } else {
+                if (property.value.value.endsWith(".css")) {
+                    // TODO: fix hardcoded value
+                    references.push(`/assets/${property.value.value}`);
+                } else {
+                    // TODO: fix hardcoded value
+                    references.push(`/assets/${property.value.value}.css`);
+                }
+            }
         }
     }
 

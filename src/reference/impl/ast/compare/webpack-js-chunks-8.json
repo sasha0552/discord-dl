@@ -1,0 +1,64 @@
+{
+  "type": "AssignmentExpression",
+
+  "operator": "=",
+
+  "left": {
+    "type": "MemberExpression",
+
+    "object": {
+      "type": "Identifier"
+    },
+
+    "property": {
+      "type": "Identifier"
+    }
+  },
+
+  "right": {
+    "type": "ArrowFunctionExpression",
+
+    "params": [
+      {
+        "type": "Identifier"
+      }
+    ],
+
+    "body": {
+      "type": "BinaryExpression",
+
+      "left": {
+        "type": "BinaryExpression",
+
+        "left": {
+          "type": "Literal",
+          "value": ""
+        },
+
+        "operator": "+",
+
+        "right": {
+          "type": "MemberExpression",
+
+          "object": {
+            "type": "ObjectExpression",
+
+            ";special:name": "jsChunks",
+            ";special:marker": "properties"
+          },
+
+          "property": {
+            "type": "Identifier"
+          }
+        }
+      },
+
+      "operator": "+",
+
+      "right": {
+        "type": "Literal",
+        "value": ".js"
+      }
+    }
+  }
+}
