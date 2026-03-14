@@ -20,7 +20,7 @@
         "object": {
           "type": "ObjectExpression",
 
-          ";special:name": "cssChunks",
+          ";special:name": "cssChunksWithoutKeys",
           ";special:marker": "properties"
         },
 
