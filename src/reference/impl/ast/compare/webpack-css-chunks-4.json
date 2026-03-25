@@ -1,0 +1,40 @@
+{
+  "type": "ArrowFunctionExpression",
+
+  "body": {
+    "type": "BinaryExpression",
+
+    "left": {
+      "type": "BinaryExpression",
+
+      "left": {
+        "type": "Literal",
+        "value": ""
+      },
+
+      "operator": "+",
+
+      "right": {
+        "type": "MemberExpression",
+
+        "object": {
+          "type": "ObjectExpression",
+
+          ";special:name": "cssChunksWithoutKeys",
+          ";special:marker": "properties"
+        },
+
+        "property": {
+          "type": "Identifier"
+        }
+      }
+    },
+
+    "operator": "+",
+
+    "right": {
+      "type": "Literal",
+      "value": ".css"
+    }
+  }
+}

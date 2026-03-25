@@ -1,0 +1,64 @@
+{
+  "type": "AssignmentExpression",
+
+  "operator": "=",
+
+  "left": {
+    "type": "MemberExpression",
+
+    "object": {
+      "type": "Identifier"
+    },
+
+    "property": {
+      "type": "Identifier",
+      "name": "exports"
+    }
+  },
+
+  "right": {
+    "type": "CallExpression",
+
+    "callee": {
+      "type": "MemberExpression",
+
+      "object": {
+        "type": "Identifier"
+      },
+
+      "property": {
+        "type": "Identifier"
+      }
+    },
+
+    "arguments": [
+      {
+        "type": "Identifier"
+      },
+
+      {
+        "type": "MemberExpression",
+
+        "object": {
+          "type": "Identifier"
+        },
+
+        "property": {
+          "type": "Identifier",
+          "name": "id"
+        }
+      },
+
+      {
+        "type": "Literal",
+
+        ";special:name": "wasmReference",
+        ";special:marker": "value"
+      },
+
+      {
+        "type": "ObjectExpression"
+      }
+    ]
+  }
+}
